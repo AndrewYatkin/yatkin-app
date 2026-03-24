@@ -4,6 +4,8 @@ import { supabase } from './supabaseClient';
 import Auth from './Auth';
 import RepairList from './RepairList';
 import AddRepairForm from './AddRepairForm';
+import IndustrialMachineList from "./IndustrialMachineList.jsx";
+import AddIndustrialMachineForm from "./AddIndustrialMachineForm.jsx";
 
 function App() {
   const [session, setSession] = useState(null);
@@ -39,6 +41,8 @@ function App() {
               <nav className="main-nav">
                 <Link to="/repairs">Список ремонтов</Link>
                 <Link to="/add-repair">Добавить ремонт</Link>
+                <Link to="/industrial-machines">Список станков</Link>
+                <Link to="/add-industrial-machine">Добавить станок</Link>
                 <button onClick={() => supabase.auth.signOut()}>
                   Выйти
                 </button>
@@ -62,6 +66,18 @@ function App() {
                 path="/add-repair"
                 element={
                   session ? <AddRepairForm /> : <Navigate to="/" replace />
+                }
+            />
+            <Route
+                path="/industrial-machines"
+                element={
+                    session ? <IndustrialMachineList /> : <Navigate to="/" replace />
+                }
+            />
+            <Route
+                path="/add-industrial-machine"
+                element={
+                    session ? <AddIndustrialMachineForm /> : <Navigate to="/" replace />
                 }
             />
           </Routes>

@@ -19,9 +19,9 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
             const {data, error} = await supabase
                 .from('industrial_machine')
                 .insert([{
-                    machineTypeCode: machineTypeCode,
+                    machine_type_code: machineTypeCode,
                     country: country,
-                    yearOfManufacture: yearOfManufacture,
+                    year_of_manufacture: yearOfManufacture,
                     brand: brand
                 }]);
             if (error) {
@@ -62,10 +62,10 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
                 <div>
                     <label htmlFor="country">Страна производитель</label>
                     <input
-                        type="text"
+                        type=""
                         id="country"
                         value={country}
-                        onChange={(e) => setMachineTypeCode(e.target.value)}
+                        onChange={(e) => setCountry(e.target.value)}
                         required
                         disabled={loading}
                     />
@@ -76,7 +76,7 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
                         type="number"
                         id="yearOfManufacture"
                         value={yearOfManufacture}
-                        onChange={(e) => setMachineTypeCode(e.target.value)}
+                        onChange={(e) => yearOfManufacture(e.target.value)}
                         required
                         disabled={loading}
                     />
@@ -84,10 +84,10 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
                 <div>
                     <label htmlFor="brand">Email:</label>
                     <input
-                        type="email"
-                        id="email"
+                        type="brand"
+                        id="brand"
                         value={brand}
-                        onChange={(e) => setCountry(e.target.value)}
+                        onChange={(e) => setBrand(e.target.value)}
                         required
                         disabled={loading}
                     />
