@@ -25,11 +25,16 @@ function RepairList() {
     useEffect(() => {
         fetchContacts();
     }, []);
+    /*
+    Вместо этой строчки (внизу) вставить fetchContacts() для автоматического обновления
+    списка при добавлении нового контакта.
+    И необходимо удалить передающуюся переменную newContact
+     */
     const handleContactAdded = (newContact) => {
         setContacts((prevContacts) => [newContact, ...prevContacts]);
     };
     const handleDeleteContact = async (id) => {
-        if (!window.confirm(' O G69D9AO, GFB IBF8F9 G84?8FP QFBF >BAF4>F?')) return;
+        if (!window.confirm('Вы уверены что хотите удалить этот контакт?')) return;
         try {
             const { error } = await supabase
                 .from('contacts')
@@ -37,27 +42,27 @@ function RepairList() {
                 .eq('id', id);
             if (error) throw error;
             setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
-            alert(' BAF4>F GEC9HAB G84?9A!');
+            alert('Контакт успешно удален');
         } catch (error) {
             setError(error.message);
-            console.error(' H85>4 CD8 G84?9A88 >BAF4>F4:', error.message);
+            console.error('ошибка при удалении контакта', error.message);
         }
     };
-    if (loading) return <p> 47DG7>4 >BAF4>FB6...</p>;
-    if (error) return <p className="error"> H85>4: {error}</p>;
+    if (loading) return <p>Загрузка контактов...</p>;
+    if (error) return <p className="error">Ошибка: {error}</p>;
     return (
         <div>
-            <h2> 4H8 >BAF4>FO</h2>
-            <AddContactForm onContactAdded={handleContactAdded} /> {/* (BD@4 8B546?9A8O */}
+            <h2>Ваши контакты</h2>
+            <AddContactForm onContactAdded={handleContactAdded} /> {/* форма добавления */}
             {contacts.length === 0 ? (
-                <p>' 64E CB>4 A9F >BAF4>FB6.</p>
+                <p>У вас пока нет контактов</p>
             ) : (
                 <ul>
                     {contacts.map((contact) => (
                         <li key={contact.id}>
                             {contact.name} - {contact.email}
                             <button onClick={() => handleDeleteContact(contact.id)} style={{ marginLeft: '10px' }}>
-                                '84?8FP
+                                Удалить
                             </button>
                         </li>
                     ))}
