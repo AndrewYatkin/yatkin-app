@@ -31,9 +31,9 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
             if (onIndustrialMachineAdded && data && data.length > 0) {
                 onIndustrialMachineAdded(data[0]);
             }
-            setMachineTypeCode('');
+            setMachineTypeCode(0);
             setCountry('');
-            setYearOfManufacture('');
+            setYearOfManufacture(0);
             setBrand('');
             alert('Станок успешно добавлен');
         } catch (error) {
@@ -62,7 +62,7 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
                 <div>
                     <label htmlFor="country">Страна производитель</label>
                     <input
-                        type=""
+                        type="text"
                         id="country"
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
@@ -71,20 +71,20 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
                     />
                 </div>
                 <div>
-                    <label htmlFor="yearOfManufacture">Имя</label>
+                    <label htmlFor="yearOfManufacture">Год производства</label>
                     <input
                         type="number"
                         id="yearOfManufacture"
                         value={yearOfManufacture}
-                        onChange={(e) => yearOfManufacture(e.target.value)}
+                        onChange={(e) => setYearOfManufacture(e.target.value)}
                         required
                         disabled={loading}
                     />
                 </div>
                 <div>
-                    <label htmlFor="brand">Email:</label>
+                    <label htmlFor="brand">Производитель</label>
                     <input
-                        type="brand"
+                        type="text"
                         id="brand"
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
