@@ -76,7 +76,7 @@ function AddRepairForm({onRepairAdded}) {
                         type="date"
                         id="startDate"
                         value={startDate}
-                        onChange={(e) => setRepairCode(e.target.value)}
+                        onChange={(e) => setStartDate(e.target.value)}
                         required
                         disabled={loading}
                     />
@@ -87,7 +87,7 @@ function AddRepairForm({onRepairAdded}) {
                         type="text"
                         id="description"
                         value={description}
-                        onChange={(e) => setRepairCode(e.target.value)}
+                        onChange={(e) => setDescription(e.target.value)}
                         required
                         disabled={loading}
                     />
