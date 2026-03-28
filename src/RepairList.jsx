@@ -62,7 +62,7 @@ function RepairList() {
                 <ul>
                     {repairs.map((repair) => (
                         <li key={repair.id}>
-                            {repair.name} - {repair.email}
+                            {repair.id} - {repair.machine_type_code} - {repair.repair_code} - {repair.start_date} - {repair.description}
                             <button onClick={() => handleDeleteRepair(repair.id)} style={{ marginLeft: '10px' }}>
                                 Удалить
                             </button>
