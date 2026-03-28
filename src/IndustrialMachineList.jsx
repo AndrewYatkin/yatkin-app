@@ -63,9 +63,9 @@ function IndustrialMachineList() {
                 <p>У вас пока нет станков</p>
             ) : (
                 <ul>
-                    {industrialMachine.map((industrialMachine) => (
+                    {industrialMachines.map((industrialMachine) => (
                         <li key={industrialMachine.id}>
-                            {industrialMachine.machineTypeCode} - {industrialMachine.country}
+                            {industrialMachine.id} - {industrialMachine.machine_type_code} - {industrialMachine.country} - {industrialMachine.year_of_manufacture} - {industrialMachine.brand}
                             <button onClick={() => handleDeleteIndustrialMachine(industrialMachine.id)} style={{ marginLeft: '10px' }}>
                                 Удалить
                             </button>
