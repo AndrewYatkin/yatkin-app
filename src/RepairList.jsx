@@ -3,10 +3,12 @@ import { supabase } from './supabaseClient';
 import AddRepairForm from './AddRepairForm.jsx';
 
 function RepairList() {
-    const [contacts, setContacts] = useState([]);
+    const [repairs, setRepairs] = useState([]);
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const fetchContacts = async () => {
+
+    const fetchRepairs = async () => {
         try {
             setLoading(true);
             const { data, error } = await supabase
@@ -14,54 +16,54 @@ function RepairList() {
                 .select('*')
                 .order('id', { ascending: false });
             if (error) throw error;
-            setContacts(data);
+            setRepairs(data);
         } catch (error) {
             setError(error.message);
-            console.error(' H85>4 CD8 CB?GG9A88 >BAF4>FB6:', error.message);
+            console.error('Ошибка при получении ремонтов:', error.message);
         } finally {
             setLoading(false);
         }
     };
     useEffect(() => {
-        fetchContacts();
+        fetchRepairs();
     }, []);
     /*
     Вместо этой строчки (внизу) вставить fetchContacts() для автоматического обновления
     списка при добавлении нового контакта.
     И необходимо удалить передающуюся переменную newContact
      */
-    const handleContactAdded = (newContact) => {
-        setContacts((prevContacts) => [newContact, ...prevContacts]);
+    const handleRepairAdded = (newRepair) => {
+        setRepairs((prevRepairs) => [newRepair, ...prevRepairs]);
     };
-    const handleDeleteContact = async (id) => {
-        if (!window.confirm('Вы уверены что хотите удалить этот контакт?')) return;
+    const handleDeleteRepair = async (id) => {
+        if (!window.confirm('Вы уверены что хотите удалить этот ремонт?')) return;
         try {
             const { error } = await supabase
-                .from('contacts')
+                .from('repair')
                 .delete()
                 .eq('id', id);
             if (error) throw error;
-            setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
-            alert('Контакт успешно удален');
+            setRepairs((prevRepairs) => prevRepairs.filter((repair) => repair.id !== id));
+            alert('Ремонт успешно удален');
         } catch (error) {
             setError(error.message);
-            console.error('ошибка при удалении контакта', error.message);
+            console.error('Ошибка при удалении ремонта', error.message);
         }
     };
-    if (loading) return <p>Загрузка контактов...</p>;
+    if (loading) return <p>Загрузка ремонтов...</p>;
     if (error) return <p className="error">Ошибка: {error}</p>;
     return (
         <div>
-            <h2>Ваши контакты</h2>
-            <AddContactForm onContactAdded={handleContactAdded} /> {/* форма добавления */}
-            {contacts.length === 0 ? (
-                <p>У вас пока нет контактов</p>
+            <h2>Ваши ремонты</h2>
+            <AddRepairForm onRepairAdded={handleRepairAdded}/> {/* форма добавления */}
+            {repairs.length === 0 ? (
+                <p>У вас пока нет ремонтов</p>
             ) : (
                 <ul>
-                    {contacts.map((contact) => (
-                        <li key={contact.id}>
-                            {contact.name} - {contact.email}
-                            <button onClick={() => handleDeleteContact(contact.id)} style={{ marginLeft: '10px' }}>
+                    {repairs.map((repair) => (
+                        <li key={repair.id}>
+                            {repair.name} - {repair.email}
+                            <button onClick={() => handleDeleteRepair(repair.id)} style={{ marginLeft: '10px' }}>
                                 Удалить
                             </button>
                         </li>

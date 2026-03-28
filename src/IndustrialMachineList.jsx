@@ -5,7 +5,6 @@ import AddIndustrialMachineForm from "./AddIndustrialMachineForm.jsx";
 function IndustrialMachineList() {
     const [industrialMachines, setIndustrialMachines] = useState([]);
 
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 

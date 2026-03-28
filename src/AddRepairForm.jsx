@@ -17,12 +17,17 @@ function AddRepairForm({onRepairAdded}) {
 
         try {
             const {data, error} = await supabase
-                .from('contacts')
-                .insert([{name: machineTypeCode, email: repairCode}]);
+                .from('repair')
+                .insert([{
+                    machine_type_code: machineTypeCode,
+                    repair_code: repairCode,
+                    start_date: startDate,
+                    description: description,
+                }]);
             if (error) {
                 throw error;
             }
-        // Передаем новую запись родительскому компоненту для обновления списка
+            // Передаем новую запись родительскому компоненту для обновления списка
             if (onRepairAdded && data && data.length > 0) {
                 onRepairAdded(data[0]);
             }
@@ -87,7 +92,7 @@ function AddRepairForm({onRepairAdded}) {
                         disabled={loading}
                     />
                 </div>
-                <button type="submit" disabled={startDate}>
+                <button type="submit" disabled={loading}>
                     {loading ? 'Добавление...' : 'Добавить ремонт'}
                 </button>
                 {error && <p className="error"> L85:4: {error}</p>}
