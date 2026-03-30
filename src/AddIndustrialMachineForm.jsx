@@ -23,7 +23,8 @@ function AddIndustrialMachineForm({onIndustrialMachineAdded}) {
                     country: country,
                     year_of_manufacture: yearOfManufacture,
                     brand: brand
-                }]);
+                }])
+                .select();
             if (error) {
                 throw error;
             }

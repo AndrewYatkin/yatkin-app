@@ -24,16 +24,13 @@ function IndustrialMachineList() {
             setLoading(false);
         }
     };
+
     useEffect(() => {
         fetchIndustrialMachines();
     }, []);
-    /*
-    Вместо этой строчки (внизу) вставить fetchIndustrialMachines() для автоматического обновления
-    списка при добавлении нового контакта.
-    И необходимо удалить передающуюся переменную newContact
-     */
-    const handleIndustrialMachineAdded = (newIndustrialMachine) => {
-        setIndustrialMachines((prevIndustrialMachines) => [newIndustrialMachine, ...prevIndustrialMachines]);
+
+    const handleIndustrialMachineAdded = () => {
+        fetchIndustrialMachines(); // Автоматическое обновление списка
     };
 
     const handleDeleteIndustrialMachine = async (id) => {
@@ -44,8 +41,7 @@ function IndustrialMachineList() {
                 .delete()
                 .eq('id', id);
             if (error) throw error;
-            setIndustrialMachines((prevIndustrialMachines) =>
-                prevIndustrialMachines.filter((industrialMachine) => industrialMachine.id !== id));
+            fetchIndustrialMachines()
             alert('Станок успешно удален');
         } catch (error) {
             setError(error.message);
