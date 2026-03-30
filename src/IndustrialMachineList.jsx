@@ -65,7 +65,7 @@ function IndustrialMachineList() {
                         <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Тип станка</th>
                         <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Страна</th>
                         <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Год выпуска</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Бренд</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Производитель</th>
                         <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Действия</th>
                     </tr>
                     </thead>
