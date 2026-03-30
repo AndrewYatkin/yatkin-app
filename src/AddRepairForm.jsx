@@ -23,7 +23,8 @@ function AddRepairForm({onRepairAdded}) {
                     repair_code: repairCode,
                     start_date: startDate,
                     description: description,
-                }]);
+                }])
+                .select();
             if (error) {
                 throw error;
             }

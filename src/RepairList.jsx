@@ -24,16 +24,13 @@ function RepairList() {
             setLoading(false);
         }
     };
+
     useEffect(() => {
         fetchRepairs();
     }, []);
-    /*
-    Вместо этой строчки (внизу) вставить fetchContacts() для автоматического обновления
-    списка при добавлении нового контакта.
-    И необходимо удалить передающуюся переменную newContact
-     */
-    const handleRepairAdded = (newRepair) => {
-        setRepairs((prevRepairs) => [newRepair, ...prevRepairs]);
+
+    const handleRepairAdded = () => {
+        fetchRepairs();
     };
     const handleDeleteRepair = async (id) => {
         if (!window.confirm('Вы уверены что хотите удалить этот ремонт?')) return;
@@ -43,7 +40,7 @@ function RepairList() {
                 .delete()
                 .eq('id', id);
             if (error) throw error;
-            setRepairs((prevRepairs) => prevRepairs.filter((repair) => repair.id !== id));
+            fetchRepairs();
             alert('Ремонт успешно удален');
         } catch (error) {
             setError(error.message);
@@ -55,22 +52,42 @@ function RepairList() {
     return (
         <div>
             <h2>Ваши ремонты</h2>
-            <AddRepairForm onRepairAdded={handleRepairAdded}/> {/* форма добавления */}
+            <AddRepairForm onRepairAdded={handleRepairAdded}/>
+
             {repairs.length === 0 ? (
                 <p>У вас пока нет ремонтов</p>
             ) : (
-                <ul>
+                <table style={{borderCollapse: 'collapse', width: '100%'}}>
+                    <thead>
+                    <tr>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>ID</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Тип станка</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Код ремонта</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Дата начала</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Описание</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {repairs.map((repair) => (
-                        <li key={repair.id}>
-                            {repair.id} - {repair.machine_type_code} - {repair.repair_code} - {repair.start_date} - {repair.description}
-                            <button onClick={() => handleDeleteRepair(repair.id)} style={{ marginLeft: '10px' }}>
-                                Удалить
-                            </button>
-                        </li>
+                        <tr key={repair.id}>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repair.id}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repair.machine_type_code}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repair.repair_code}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repair.start_date}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repair.description}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>
+                                <button onClick={() => handleDeleteRepair(repair.id)} style={{marginLeft: '10px'}}>
+                                    Удалить
+                                </button>
+                            </td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             )}
         </div>
     );
 }
+
 export default RepairList;
