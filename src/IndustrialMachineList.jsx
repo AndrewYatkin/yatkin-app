@@ -61,12 +61,12 @@ function IndustrialMachineList() {
                 <table style={{ borderCollapse: 'collapse', width: '100%' }}>
                     <thead>
                     <tr>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>ID</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Тип станка</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Страна</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Год выпуска</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Бренд</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Действия</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>ID</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Тип станка</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Страна</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Год выпуска</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Бренд</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Действия</th>
                     </tr>
                     </thead>
                     <tbody>
