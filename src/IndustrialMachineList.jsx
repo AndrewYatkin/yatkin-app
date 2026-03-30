@@ -8,7 +8,7 @@ function IndustrialMachineList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchContacts = async () => {
+    const fetchIndustrialMachines = async () => {
         try {
             setLoading(true);
             const { data, error } = await supabase
@@ -25,10 +25,10 @@ function IndustrialMachineList() {
         }
     };
     useEffect(() => {
-        fetchContacts();
+        fetchIndustrialMachines();
     }, []);
     /*
-    Вместо этой строчки (внизу) вставить fetchContacts() для автоматического обновления
+    Вместо этой строчки (внизу) вставить fetchIndustrialMachines() для автоматического обновления
     списка при добавлении нового контакта.
     И необходимо удалить передающуюся переменную newContact
      */
@@ -57,20 +57,39 @@ function IndustrialMachineList() {
     return (
         <div>
             <h2>Станки</h2>
-            <AddIndustrialMachineForm onIndustrialMachineAdded={handleIndustrialMachineAdded}/> {/* форма добавления */}
+            <AddIndustrialMachineForm onIndustrialMachineAdded={handleIndustrialMachineAdded}/>
+
             {industrialMachines.length === 0 ? (
                 <p>У вас пока нет станков</p>
             ) : (
-                <ul>
+                <table style={{ borderCollapse: 'collapse', width: '100%' }}>
+                    <thead>
+                    <tr>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>ID</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Тип станка</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Страна</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Год выпуска</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Бренд</th>
+                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {industrialMachines.map((industrialMachine) => (
-                        <li key={industrialMachine.id}>
-                            {industrialMachine.id} - {industrialMachine.machine_type_code} - {industrialMachine.country} - {industrialMachine.year_of_manufacture} - {industrialMachine.brand}
-                            <button onClick={() => handleDeleteIndustrialMachine(industrialMachine.id)} style={{ marginLeft: '10px' }}>
-                                Удалить
-                            </button>
-                        </li>
+                        <tr key={industrialMachine.id}>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{industrialMachine.id}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{industrialMachine.machine_type_code}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{industrialMachine.country}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{industrialMachine.year_of_manufacture}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>{industrialMachine.brand}</td>
+                            <td style={{ border: '1px solid #ddd', padding: '8px' }}>
+                                <button onClick={() => handleDeleteIndustrialMachine(industrialMachine.id)}>
+                                    Удалить
+                                </button>
+                            </td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             )}
         </div>
     );
