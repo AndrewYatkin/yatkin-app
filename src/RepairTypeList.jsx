@@ -24,17 +24,15 @@ function RepairTypeList() {
             setLoading(false);
         }
     };
+
     useEffect(() => {
         fetchRepairTypes();
     }, []);
-    /*
-    Вместо этой строчки (внизу) вставить fetchContacts() для автоматического обновления
-    списка при добавлении нового контакта.
-    И необходимо удалить передающуюся переменную newContact
-     */
-    const handleRepairTypeAdded = (newRepairType) => {
-        setRepairTypes((prevRepairTypes) => [newRepairType, ...prevRepairTypes]);
+
+    const handleRepairTypeAdded = () => {
+        fetchRepairTypes();
     };
+
     const handleDeleteRepairType = async (id) => {
         if (!window.confirm('Вы уверены что хотите удалить этот тип ремонта?')) return;
         try {
@@ -43,7 +41,7 @@ function RepairTypeList() {
                 .delete()
                 .eq('id', id);
             if (error) throw error;
-            setRepairTypes((prevRepairTypes) => prevRepairTypes.filter((repairType) => repairType.id !== id));
+            fetchRepairTypes();
             alert('Тип ремонта успешно удален');
         } catch (error) {
             setError(error.message);
@@ -55,20 +53,42 @@ function RepairTypeList() {
     return (
         <div>
             <h2>Ваши типы ремонтов</h2>
-            <AddRepairTypeForm onRepairTypeAdded={handleRepairTypeAdded}/> {/* форма добавления */}
+            <AddRepairTypeForm onRepairTypeAdded={handleRepairTypeAdded}/>
+
             {repairTypes.length === 0 ? (
                 <p>У вас пока нет типов ремонтов</p>
             ) : (
-                <ul>
+                <table style={{borderCollapse: 'collapse', width: '100%'}}>
+                    <thead>
+                    <tr>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>ID</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Код ремонта</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Название</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Длительность</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Цена</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Описание</th>
+                        <th style={{border: '1px solid #ddd', padding: '8px', textAlign: 'center'}}>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                     {repairTypes.map((repairType) => (
-                        <li key={repairType.id}>
-                            {repairType.id} - {repairType.repair_code} - {repairType.name} - {repairType.duration} - {repairType.price} - {repairType.description}
-                            <button onClick={() => handleDeleteRepairType(repairType.id)} style={{ marginLeft: '10px' }}>
-                                Удалить
-                            </button>
-                        </li>
+                        <tr key={repairType.id}>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repairType.id}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repairType.repair_code}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repairType.name}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repairType.duration}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repairType.price}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>{repairType.description}</td>
+                            <td style={{border: '1px solid #ddd', padding: '8px'}}>
+                                <button onClick={() => handleDeleteRepairType(repairType.id)}
+                                        style={{marginLeft: '10px'}}>
+                                    Удалить
+                                </button>
+                            </td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             )}
         </div>
     );

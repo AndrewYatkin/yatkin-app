@@ -24,7 +24,8 @@ function AddRepairTypeForm({onRepairTypeAdded}) {
                     name: name,
                     duration: duration,
                     price: price,
-                    description: description}]);
+                    description: description}])
+                .select();
             if (error) {
                 throw error;
             }
