@@ -40,14 +40,49 @@ function App() {
         <BrowserRouter>
             <div className="App">
                 {session && (
-                    <nav className="main-nav">
-                        <Link to="/repairs">Список ремонтов</Link>
-                        <Link to="/add-repair">Добавить ремонт</Link>
-                        <Link to="/industrial-machines">Список станков</Link>
-                        <Link to="/add-industrial-machine">Добавить станок</Link>
-                        <Link to="/add-repair-type">Добавить тип ремонта</Link>
-                        <Link to="/repair-types">Список типов ремонтов</Link>
-                        <button onClick={() => supabase.auth.signOut()}>
+                    <nav style={{
+                        display: 'flex',
+                        gap: '20px',
+                        padding: '10px 20px',
+                        backgroundColor: '#a0bcd0',
+                        alignItems: 'center'
+                    }}>
+                        <Link to="/repairs" style={{
+                            color: 'white',
+                            textDecoration: 'none',
+                            padding: '8px 16px',
+                            borderRadius: '4px',
+                            transition: 'background-color 0.3s'
+                        }}>
+                            Список ремонтов
+                        </Link>
+                        <Link to="/industrial-machines" style={{
+                            color: 'white',
+                            textDecoration: 'none',
+                            padding: '8px 16px',
+                            borderRadius: '4px',
+                            transition: 'background-color 0.3s'
+                        }}>
+                            Список станков
+                        </Link>
+                        <Link to="/repair-types" style={{
+                            color: 'white',
+                            textDecoration: 'none',
+                            padding: '8px 16px',
+                            borderRadius: '4px',
+                            transition: 'background-color 0.3s'
+                        }}>
+                            Список типов ремонтов
+                        </Link>
+                        <button onClick={() => supabase.auth.signOut()} style={{
+                            color: 'white',
+                            backgroundColor: '#dc3545',
+                            border: 'none',
+                            padding: '8px 16px',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            transition: 'background-color 0.3s'
+                        }}>
                             Выйти
                         </button>
                     </nav>
@@ -67,33 +102,15 @@ function App() {
                         }
                     />
                     <Route
-                        path="/add-repair"
-                        element={
-                            session ? <AddRepairForm/> : <Navigate to="/" replace/>
-                        }
-                    />
-                    <Route
                         path="/industrial-machines"
                         element={
                             session ? <IndustrialMachineList/> : <Navigate to="/" replace/>
                         }
                     />
                     <Route
-                        path="/add-industrial-machine"
-                        element={
-                            session ? <AddIndustrialMachineForm/> : <Navigate to="/" replace/>
-                        }
-                    />
-                    <Route
                         path="/repair-types"
                         element={
                             session ? <RepairTypeList/> : <Navigate to="/" replace/>
-                        }
-                    />
-                    <Route
-                        path="/add-repair-type"
-                        element={
-                            session ? <AddRepairTypeForm/> : <Navigate to="/" replace/>
                         }
                     />
                 </Routes>
