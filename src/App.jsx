@@ -1,13 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import {BrowserRouter, Routes, Route, Navigate, Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {BrowserRouter, Link, Navigate, Route, Routes} from 'react-router-dom';
 import {supabase} from './supabaseClient';
 import Auth from './Auth';
-import RepairList from './RepairList';
-import AddRepairForm from './AddRepairForm';
-import IndustrialMachineList from "./IndustrialMachineList.jsx";
-import AddIndustrialMachineForm from "./AddIndustrialMachineForm.jsx";
-import RepairTypeList from "./RepairTypeList.jsx";
-import AddRepairTypeForm from "./AddRepairTypeForm.jsx";
+import RepairList from './components/RepairList.jsx';
+import IndustrialMachineList from "./components/IndustrialMachineList.jsx";
+import RepairTypeList from "./components/RepairTypeList.jsx";
 
 function App() {
     const [session, setSession] = useState(null);
